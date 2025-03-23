@@ -1,6 +1,10 @@
-version: "3.8"
-
 services: 
+
+  web:
+    image: nginx
+    ports:
+      - 80:80
+
   app:
     build: 
       context: .
@@ -20,5 +24,7 @@ services:
       - MYSQL_USER=dan
       - MYSQL_PASSWORD=secret
       - MYSQL_ROOT_PASSWORD=secret
+    ports:
+      - 3306:3306
 
     
