@@ -31,7 +31,7 @@ app.get('/create-table', function (req, res) {
     const sql = `
     CREATE TABLE IF NOT EXISTS numbers (
       id INT AUTO_INCREMENT PRIMARY KEY,
-      number INT NOT NULL,
+      number VARCHAR(500000) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )  ENGINE=INNODB;
   `;
@@ -64,6 +64,16 @@ app.get('/fetch', function (req, res) {
     });
   });
 })
+
+app.post('/number', (req, res) => {
+  const number = req.body.number;
+  const sql = 'INSERT INTO numbers (number) VALUES (?)';
+
+  db.query(sql, number, (err, result) => {
+    if (err) throw err;
+    res.send('Number added to database');
+  });
+});
 
 app.listen(3000)
 
